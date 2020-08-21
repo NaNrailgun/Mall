@@ -71,7 +71,7 @@ public class MallUserServiceImpl implements MallUserService {
 
     @Override
     public Boolean logout(Long userId) {
-        return null;
+        return mallUserTokenMapper.deleteByPrimaryKey(userId) > 0;
     }
 
     @Override

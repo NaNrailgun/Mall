@@ -16,7 +16,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
 @Component
 public class MallTokenHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
@@ -35,7 +34,7 @@ public class MallTokenHandlerMethodArgumentResolver implements HandlerMethodArgu
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
         String token = nativeWebRequest.getHeader("token");
-        if (token == null || "".equals(token) || token.length() == Constants.TOKEN_LENGTH) {
+        if (token == null || "".equals(token) || token.length() != Constants.TOKEN_LENGTH) {
             MallException.fail(ServiceResultEnum.NOT_LOGIN_ERROR.getResult());
         }
         MallUserToken userToken = mallUserTokenMapper.selectByToken(token);
@@ -49,11 +48,11 @@ public class MallTokenHandlerMethodArgumentResolver implements HandlerMethodArgu
         if (user.getLockedFlag() == 1) {
             MallException.fail(ServiceResultEnum.LOGIN_USER_LOCKED_ERROR.getResult());
         }
-        //续杯
+        /*//续杯
         Date now = new Date();
         userToken.setUpdateTime(now);
         userToken.setExpireTime(new Date(now.getTime() + 2 * 24 * 3600 * 1000));
-        mallUserTokenMapper.updateByPrimaryKey(userToken);
+        mallUserTokenMapper.updateByPrimaryKey(userToken);*/
         return user;
     }
 }

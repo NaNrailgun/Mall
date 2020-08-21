@@ -2,8 +2,10 @@ package com.nanrailgun.mall.controller;
 
 import com.nanrailgun.mall.common.Constants;
 import com.nanrailgun.mall.common.ServiceResultEnum;
+import com.nanrailgun.mall.config.annotation.MallToken;
 import com.nanrailgun.mall.controller.param.MallUserLoginParam;
 import com.nanrailgun.mall.controller.param.MallUserRegisterParam;
+import com.nanrailgun.mall.entity.MallUser;
 import com.nanrailgun.mall.service.MallUserService;
 import com.nanrailgun.mall.utils.NumberUtil;
 import com.nanrailgun.mall.utils.Result;
@@ -45,5 +47,13 @@ public class MallUserController {
             return result;
         }
         return ResultGenerator.genFailResult(loginResult);
+    }
+
+    @PostMapping("/user/logout")
+    public Result logout(@MallToken MallUser user){
+        if (mallUserService.logout(user.getUserId())){
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult("退出登录失败");
     }
 }
