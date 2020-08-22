@@ -8,5 +8,5 @@ import java.io.Serializable;
 public class MallUserUpdateParam implements Serializable {
     private String nickName;
     private String introduceSign;
-    private String passwordMD5;
+    private String passwordMd5;
 }

@@ -80,8 +80,8 @@ public class MallUserServiceImpl implements MallUserService {
         if (oldUser != null) {
             oldUser.setNickName(param.getNickName());
             //若密码为空字符，则表明用户不打算修改密码，使用原密码保存
-            if (!MD5Util.MD5Encode("", "UTF-8").equals(param.getPasswordMD5())) {
-                oldUser.setPasswordMD5(param.getPasswordMD5());
+            if (!MD5Util.MD5Encode("", "UTF-8").equals(param.getPasswordMd5())) {
+                oldUser.setPasswordMD5(param.getPasswordMd5());
             }
             oldUser.setIntroduceSign(param.getIntroduceSign());
             return mallUserMapper.updateByPrimaryKey(oldUser) > 0;

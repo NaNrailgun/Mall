@@ -6,16 +6,14 @@ import com.nanrailgun.mall.config.annotation.MallToken;
 import com.nanrailgun.mall.controller.param.MallUserLoginParam;
 import com.nanrailgun.mall.controller.param.MallUserRegisterParam;
 import com.nanrailgun.mall.controller.param.MallUserUpdateParam;
+import com.nanrailgun.mall.controller.vo.MallUserVO;
 import com.nanrailgun.mall.entity.MallUser;
 import com.nanrailgun.mall.service.MallUserService;
 import com.nanrailgun.mall.utils.NumberUtil;
 import com.nanrailgun.mall.utils.Result;
 import com.nanrailgun.mall.utils.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -65,5 +63,15 @@ public class MallUserController {
             return ResultGenerator.genSuccessResult();
         }
         return ResultGenerator.genFailResult(ServiceResultEnum.UPDATE_ERROR.getResult());
+    }
+
+    @GetMapping("/user/info")
+    public Result getUserInfo(@MallToken MallUser user) {
+        MallUserVO mallUserVO = MallUserVO.builder()
+                .loginName(user.getLoginName())
+                .nickName(user.getNickName())
+                .introduceSign(user.getIntroduceSign())
+                .build();
+        return ResultGenerator.genSuccessResult(mallUserVO);
     }
 }
