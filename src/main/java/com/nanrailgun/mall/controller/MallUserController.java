@@ -5,6 +5,7 @@ import com.nanrailgun.mall.common.ServiceResultEnum;
 import com.nanrailgun.mall.config.annotation.MallToken;
 import com.nanrailgun.mall.controller.param.MallUserLoginParam;
 import com.nanrailgun.mall.controller.param.MallUserRegisterParam;
+import com.nanrailgun.mall.controller.param.MallUserUpdateParam;
 import com.nanrailgun.mall.entity.MallUser;
 import com.nanrailgun.mall.service.MallUserService;
 import com.nanrailgun.mall.utils.NumberUtil;
@@ -12,6 +13,7 @@ import com.nanrailgun.mall.utils.Result;
 import com.nanrailgun.mall.utils.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,10 +52,18 @@ public class MallUserController {
     }
 
     @PostMapping("/user/logout")
-    public Result logout(@MallToken MallUser user){
-        if (mallUserService.logout(user.getUserId())){
+    public Result logout(@MallToken MallUser user) {
+        if (mallUserService.logout(user.getUserId())) {
             return ResultGenerator.genSuccessResult();
         }
-        return ResultGenerator.genFailResult("退出登录失败");
+        return ResultGenerator.genFailResult(ServiceResultEnum.LOGOUT_ERROR.getResult());
+    }
+
+    @PutMapping("/user/info")
+    public Result update(@RequestBody MallUserUpdateParam param, @MallToken MallUser user) {
+        if (mallUserService.update(param, user.getUserId())) {
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult(ServiceResultEnum.UPDATE_ERROR.getResult());
     }
 }

@@ -46,6 +46,10 @@ public enum ServiceResultEnum {
 
     LOGIN_USER_LOCKED_ERROR("用户已被禁止登录！"),
 
+    LOGOUT_ERROR("退出登录失败！"),
+
+    UPDATE_ERROR("修改失败！"),
+
     ORDER_NOT_EXIST_ERROR("订单不存在！"),
 
     NULL_ADDRESS_ERROR("地址不能为空！"),
