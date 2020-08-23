@@ -72,6 +72,7 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
                 }
             }
         }
+        address.setUpdateTime(now);
         if (mallUserAddressMapper.updateByPrimaryKey(address) < 1)
             MallException.fail(ServiceResultEnum.DB_ERROR.getResult());
     }
