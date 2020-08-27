@@ -9,12 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 
 @SpringBootTest
-class MallUserAddressServiceImplTest {
+class MallUserAddressServiceTest {
 
     @Resource
     MallUserAddressService mallUserAddressService;
 
-    private static final Logger logger = LoggerFactory.getLogger(MallUserAddressServiceImplTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(MallUserAddressServiceTest.class);
 
     @Test
     void getAddressListTest() {
