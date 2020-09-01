@@ -127,5 +127,15 @@
             #{id}
         </foreach>
     </update>
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_shopping_cart_item
+        where cart_item_id in
+        <foreach collection="cartItemIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and is_deleted = 0;
+    </select>
 
 </mapper>

@@ -30,7 +30,7 @@ class MallShoppingCartItemMapperTest {
 
     @Test
     void selectByPrimaryKeyTest() {
-        Long id = 3L;
+        Long id = 4L;
         MallShoppingCartItem item = mallShoppingCartItemMapper.selectByPrimaryKey(id);
         logger.info("id:{}", id);
         logger.info("item:{}", item);
@@ -72,7 +72,7 @@ class MallShoppingCartItemMapperTest {
 
     @Test
     void deleteByPrimaryTest() {
-        logger.info("result:{}", mallShoppingCartItemMapper.deleteByPrimary(1L));
+        logger.info("result:{}", mallShoppingCartItemMapper.deleteByPrimary(4L));
     }
 
     @Test
@@ -81,6 +81,17 @@ class MallShoppingCartItemMapperTest {
         list.add(1L);
         list.add(2L);
         logger.info("result:{}", mallShoppingCartItemMapper.deleteBatch(list));
+    }
+
+    @Test
+    void selectByPrimaryKeysTest() {
+        List<Long> ids = new ArrayList<>();
+        ids.add(1L);
+        ids.add(2L);
+        ids.add(3L);
+        List<MallShoppingCartItem> list = mallShoppingCartItemMapper.selectByPrimaryKeys(ids);
+        logger.info("ids:{}", ids);
+        logger.info("list:{}", list);
     }
 
 }

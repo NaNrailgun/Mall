@@ -14,6 +14,8 @@ public interface MallShoppingCartItemMapper {
 
     List<MallShoppingCartItem> selectByUserId(Long userId);
 
+    List<MallShoppingCartItem> selectByPrimaryKeys(List<Long> cartItemIds);
+
     int selectCountByUserId(Long userId);
 
     int updateByPrimaryKey(MallShoppingCartItem item);
