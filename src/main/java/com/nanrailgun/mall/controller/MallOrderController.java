@@ -9,6 +9,7 @@ import com.nanrailgun.mall.utils.Result;
 import com.nanrailgun.mall.utils.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +36,10 @@ public class MallOrderController {
         params.put("limit", Constants.ORDER_SEARCH_PAGE_LIMIT);
         PageQueryUtil util = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(mallOrderService.getMyOrders(util));
+    }
+
+    @GetMapping("/order/{orderNo}")
+    public Result getOrderDetail(@PathVariable("orderNo") String orderNo, @MallToken MallUser user) {
+        return ResultGenerator.genSuccessResult(mallOrderService.getOrderDetailByOrderNo(orderNo, user.getUserId()));
     }
 }
