@@ -49,4 +49,13 @@ public class MallOrderController {
         }
         return ResultGenerator.genFailResult(result);
     }
+
+    @PutMapping("/order/{orderNo}/finish")
+    public Result finishOrder(@PathVariable("orderNo") String orderNo, @MallToken MallUser user) {
+        String result = mallOrderService.finishOrder(orderNo, user.getUserId());
+        if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult(result);
+    }
 }
