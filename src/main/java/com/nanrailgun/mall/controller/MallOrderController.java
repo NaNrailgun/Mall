@@ -58,4 +58,13 @@ public class MallOrderController {
         }
         return ResultGenerator.genFailResult(result);
     }
+
+    @GetMapping("/paySuccess")
+    public Result mockPaySuccess(@RequestParam("orderNo") String orderNo, @RequestParam("payType") Integer payType, @MallToken MallUser user) {
+        String result = mallOrderService.pay(orderNo, payType);
+        if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult(result);
+    }
 }
