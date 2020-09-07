@@ -1,6 +1,7 @@
 package com.nanrailgun.mall.controller;
 
 import com.nanrailgun.mall.common.Constants;
+import com.nanrailgun.mall.common.ServiceResultEnum;
 import com.nanrailgun.mall.config.annotation.MallToken;
 import com.nanrailgun.mall.entity.MallUser;
 import com.nanrailgun.mall.service.MallOrderService;
@@ -8,10 +9,7 @@ import com.nanrailgun.mall.utils.PageQueryUtil;
 import com.nanrailgun.mall.utils.Result;
 import com.nanrailgun.mall.utils.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,5 +39,14 @@ public class MallOrderController {
     @GetMapping("/order/{orderNo}")
     public Result getOrderDetail(@PathVariable("orderNo") String orderNo, @MallToken MallUser user) {
         return ResultGenerator.genSuccessResult(mallOrderService.getOrderDetailByOrderNo(orderNo, user.getUserId()));
+    }
+
+    @PutMapping("/order/{orderNo}/cancel")
+    public Result cancelOrder(@PathVariable("orderNo") String orderNo, @MallToken MallUser user) {
+        String result = mallOrderService.cancelOrder(orderNo, user.getUserId());
+        if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult(result);
     }
 }
