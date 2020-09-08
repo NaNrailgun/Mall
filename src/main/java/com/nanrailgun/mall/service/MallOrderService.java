@@ -1,7 +1,7 @@
 package com.nanrailgun.mall.service;
 
 import com.nanrailgun.mall.controller.vo.MallOrderDetailVO;
-import com.nanrailgun.mall.controller.vo.MallShoppingCartItemVO;
+import com.nanrailgun.mall.entity.MallUser;
 import com.nanrailgun.mall.entity.MallUserAddress;
 import com.nanrailgun.mall.utils.PageQueryUtil;
 import com.nanrailgun.mall.utils.PageResult;
@@ -18,7 +18,7 @@ public interface MallOrderService {
 
     String finishOrder(String orderNo, Long userId);
 
-    String saveOrder(Long userId, MallUserAddress address, List<MallShoppingCartItemVO> items);
+    String saveOrder(MallUser user, List<Long> cartItemIds, MallUserAddress address);
 
     String pay(String orderNo, int payType);
 }

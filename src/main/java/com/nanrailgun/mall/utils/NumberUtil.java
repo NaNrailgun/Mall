@@ -22,4 +22,11 @@ public class NumberUtil {
         }
         return (int) ((random * num));
     }
+    public static String genOrderNo() {
+        StringBuilder builder = new StringBuilder(String.valueOf(System.currentTimeMillis()));
+        int num = genRandomNumber(4);
+        builder.append(num);
+        return builder.toString();
+    }
+
 }
