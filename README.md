@@ -12,7 +12,7 @@
 
 | 框架                                                      | 说明           | 版本   |
 | --------------------------------------------------------- | -------------- | ------ |
-| [Spring Boot](https://spring.io/projects/spring-boot)     | 应用开发框架   | 2.1.4  |
+| [Spring Boot](https://spring.io/projects/spring-boot)     | 应用开发框架   | 2.2.3  |
 | [MySQL](https://www.mysql.com/cn/)                        | 数据库服务器   | 8.0.11 |
 | [MyBatis](http://www.mybatis.org/mybatis-3/zh/index.html) | 数据持久层框架 | 2.1.3  |
 
