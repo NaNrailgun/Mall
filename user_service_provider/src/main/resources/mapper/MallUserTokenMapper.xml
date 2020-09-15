@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanrailgun.user_service_provider.dao.MallUserTokenMapper">
+    <resultMap id="BaseResultMap" type="com.nanrailgun.user_api.entity.MallUserToken">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, token, update_time, expire_time
+    </sql>
+
+    <insert id="insert" parameterType="com.nanrailgun.user_api.entity.MallUserToken">
+        insert into mall_user_token
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="token != null">
+                token,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="expireTime != null">
+                expire_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="token != null">
+                #{token},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="expireTime != null">
+                #{expireTime},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="long">
+        delete from mall_user_token where user_id = #{userId};
+    </delete>
+
+    <select id="selectByPrimaryKey" parameterType="long" resultType="com.nanrailgun.user_api.entity.MallUserToken">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_user_token
+        where user_id = #{userId}
+    </select>
+
+    <select id="selectByToken" parameterType="string" resultType="com.nanrailgun.user_api.entity.MallUserToken">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_user_token
+        where token = #{token}
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="com.nanrailgun.user_api.entity.MallUserToken">
+        update mall_user_token
+        <set>
+            <if test="token != null">
+                token = #{token},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="expireTime != null">
+                expire_time = #{expireTime}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+</mapper>

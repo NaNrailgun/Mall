@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanrailgun.user_service_provider.dao.MallUserMapper">
+    <resultMap id="BaseResultMap" type="com.nanrailgun.user_api.entity.MallUser">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="password_md5" jdbcType="VARCHAR" property="passwordMD5"/>
+        <result column="introduce_sign" jdbcType="VARCHAR" property="introduceSign"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="locked_flag" jdbcType="TINYINT" property="lockedFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id, nick_name, login_name, password_mD5, introduce_sign, is_deleted,
+        locked_flag, create_time
+    </sql>
+
+    <insert id="insert" parameterType="com.nanrailgun.user_api.entity.MallUser">
+        insert into mall_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="passwordMD5 != null">
+                password_md5,
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="nickName != null">
+                #{nickName},
+            </if>
+            <if test="loginName != null">
+                #{loginName},
+            </if>
+            <if test="passwordMD5 != null">
+                #{passwordMD5},
+            </if>
+            <if test="introduceSign != null">
+                #{introduceSign},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted},
+            </if>
+            <if test="lockedFlag != null">
+                #{lockedFlag},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.nanrailgun.user_api.entity.MallUser">
+        update mall_user
+        <set>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName},
+            </if>
+            <if test="passwordMD5 != null">
+                password_md5 = #{passwordMD5},
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign = #{introduceSign},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag = #{lockedFlag},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="selectByPrimaryKey" resultType="com.nanrailgun.user_api.entity.MallUser">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_user where user_id = #{userId}
+    </select>
+
+    <select id="selectByLoginName" resultType="com.nanrailgun.user_api.entity.MallUser">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_user where login_name = #{loginName}
+    </select>
+</mapper>
