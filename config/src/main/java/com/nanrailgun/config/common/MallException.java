@@ -1,6 +1,10 @@
 package com.nanrailgun.config.common;
 
-public class MallException extends RuntimeException {
+import org.apache.dubbo.rpc.RpcException;
+
+import java.io.Serializable;
+
+public class MallException extends RpcException implements Serializable {
 
     public MallException() {
     }
