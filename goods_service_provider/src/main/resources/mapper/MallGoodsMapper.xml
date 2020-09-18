@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanrailgun.goods_service_provider.dao.MallGoodsMapper">
+    <resultMap id="BaseResultMap" type="com.nanrailgun.goods_api.entity.MallGoods">
+        <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro"/>
+        <result column="goods_category_id" jdbcType="BIGINT" property="goodsCategoryId"/>
+        <result column="goods_cover_img" jdbcType="VARCHAR" property="goodsCoverImg"/>
+        <result column="goods_carousel" jdbcType="VARCHAR" property="goodsCarousel"/>
+        <result column="original_price" jdbcType="INTEGER" property="originalPrice"/>
+        <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
+        <result column="stock_num" jdbcType="INTEGER" property="stockNum"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="goods_sell_status" jdbcType="TINYINT" property="goodsSellStatus"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nanrailgun.goods_api.entity.MallGoods">
+        <result column="goods_detail_content" jdbcType="LONGVARCHAR" property="goodsDetailContent"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        goods_id, goods_name, goods_intro,goods_category_id, goods_cover_img, goods_carousel, original_price,
+        selling_price, stock_num, tag, goods_sell_status, create_user, create_time, update_user,
+        update_time
+    </sql>
+    <sql id="Blob_Column_List">
+        goods_detail_content
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"></include>
+        ,
+        <include refid="Blob_Column_List"></include>
+        from mall_goods_info
+        where goods_id = #{goodsId};
+    </select>
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_goods_info
+        where goods_id in 
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        order by field(goods_id,
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        );
+    </select>
+    <select id="selectBySearch" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+        <if test="orderBy!=null and orderBy!=''">
+            <choose>
+                <when test="orderBy == 'new'">
+                    <!-- 按照发布时间倒序排列 -->
+                    order by goods_id desc
+                </when>
+                <when test="orderBy == 'price'">
+                    <!-- 按照售价从小到大排列 -->
+                    order by selling_price asc
+                </when>
+                <otherwise>
+                    <!-- 默认按照库存数量从大到小排列 -->
+                    order by stock_num desc
+                </otherwise>
+            </choose>
+        </if>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="getTotalMallGoodsBySearch" parameterType="Map" resultType="int">
+        select count(*) from mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+    </select>
+    <update id="updateStockNum" parameterType="com.nanrailgun.goods_api.entity.StockNum">
+        <foreach collection="stockNums" item="stockNum">
+            update mall_goods_info
+            set stock_num = stock_num - #{stockNum.goodsCount}
+            where goods_id = #{stockNum.goodsId}
+            and stock_num >= #{stockNum.goodsCount}
+            and goods_sell_status = 0;
+        </foreach>
+    </update>
+</mapper>

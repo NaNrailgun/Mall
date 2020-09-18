@@ -1,9 +1,10 @@
 package com.nanrailgun.config.utils;
 
-import java.util.LinkedHashMap;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
-public class PageQueryUtil extends LinkedHashMap<String, Object> {
+public class PageQueryUtil extends HashMap<String, Object> implements Serializable {
 
     //当前页码
     private int page;
@@ -20,6 +21,8 @@ public class PageQueryUtil extends LinkedHashMap<String, Object> {
         this.put("page", page);
         this.put("limit", limit);
     }
+
+    public PageQueryUtil(){}
 
 
     public int getPage() {
