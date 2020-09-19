@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanrailgun.goods_service_provider.dao.MallCarouselMapper">
+    <resultMap id="BaseResultMap" type="com.nanrailgun.goods_api.entity.MallCarousel">
+        <id column="carousel_id" jdbcType="INTEGER" property="carouselId"/>
+        <result column="carousel_url" jdbcType="VARCHAR" property="carouselUrl"/>
+        <result column="redirect_url" jdbcType="VARCHAR" property="redirectUrl"/>
+        <result column="carousel_rank" jdbcType="INTEGER" property="carouselRank"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        carousel_id, carousel_url, redirect_url, carousel_rank, is_deleted, create_time,
+        create_user, update_time, update_user
+    </sql>
+    <select id="getCarouselsByNum" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_carousel where is_deleted = 0
+        order by carousel_rank desc
+        limit #{number};
+    </select>
+</mapper>

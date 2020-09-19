@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanrailgun.goods_service_provider.dao.MallIndexConfigMapper">
+    <resultMap id="BaseResultMap" type="com.nanrailgun.goods_api.entity.MallIndexConfig">
+        <id column="config_id" jdbcType="BIGINT" property="configId"/>
+        <result column="config_name" jdbcType="VARCHAR" property="configName"/>
+        <result column="config_type" jdbcType="TINYINT" property="configType"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="redirect_url" jdbcType="VARCHAR" property="redirectUrl"/>
+        <result column="config_rank" jdbcType="INTEGER" property="configRank"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        config_id, config_name, config_type, goods_id, redirect_url, config_rank, is_deleted,
+        create_time, create_user, update_time, update_user
+    </sql>
+    <select id="getIndexConfigByTypeAndNumber" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_index_config
+        where is_deleted = 0
+        and
+        config_type = #{configType}
+        order by config_rank desc
+        limit #{number};
+    </select>
+</mapper>
