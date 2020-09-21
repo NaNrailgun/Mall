@@ -6,6 +6,7 @@ import com.nanrailgun.config.utils.PageResult;
 import com.nanrailgun.goods_api.api.MallGoodsService;
 import com.nanrailgun.goods_api.api.dto.MallSearchGoodsDTO;
 import com.nanrailgun.goods_api.entity.MallGoods;
+import com.nanrailgun.goods_api.entity.StockNum;
 import com.nanrailgun.goods_service_provider.dao.MallGoodsMapper;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.CollectionUtils;
@@ -42,5 +43,20 @@ public class MallGoodsServiceImpl implements MallGoodsService {
             });
         }
         return new PageResult<>(list, total, pageUtil.getLimit(), pageUtil.getPage());
+    }
+
+    @Override
+    public MallGoods selectByPrimaryKey(Long goodsId) {
+        return mallGoodsMapper.selectByPrimaryKey(goodsId);
+    }
+
+    @Override
+    public List<MallGoods> selectByPrimaryKeys(List<Long> goodsId) {
+        return mallGoodsMapper.selectByPrimaryKeys(goodsId);
+    }
+
+    @Override
+    public int updateStockNum(List<StockNum> stockNums) {
+        return mallGoodsMapper.updateStockNum(stockNums);
     }
 }

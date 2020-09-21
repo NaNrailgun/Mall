@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanrailgun.order_service_provider.dao.MallShoppingCartItemMapper">
+    <resultMap id="BaseResultMap" type="com.nanrailgun.order_api.entity.MallShoppingCartItem">
+        <id column="cart_item_id" jdbcType="BIGINT" property="cartItemId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_count" jdbcType="INTEGER" property="goodsCount"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        cart_item_id, user_id, goods_id, goods_count, is_deleted, create_time, update_time
+    </sql>
+    <insert id="insert" parameterType="com.nanrailgun.order_api.entity.MallShoppingCartItem">
+        insert into mall_shopping_cart_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cartItemId != null">
+                cart_item_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsCount != null">
+                goods_count,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cartItemId != null">
+                #{cartItemId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId},
+            </if>
+            <if test="goodsCount != null">
+                #{goodsCount},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_shopping_cart_item
+        where cart_item_id = #{cartItemId} and is_deleted = 0;
+    </select>
+    <select id="selectByUserIdAndGoodsId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_shopping_cart_item
+        where user_id = #{param1} and goods_id = #{param2} and is_deleted = 0;
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_shopping_cart_item
+        where is_deleted = 0
+        and
+        user_id = #{userId};
+    </select>
+    <select id="selectCountByUserId" resultType="int">
+        select count(*)
+        from mall_shopping_cart_item
+        where user_id = #{userId}
+        and
+        is_deleted = 0;
+    </select>
+    <update id="updateByPrimaryKey" parameterType="com.nanrailgun.order_api.entity.MallShoppingCartItem">
+       update mall_shopping_cart_item
+       <set>
+           <if test="userId != null">
+               user_id = #{userId},
+           </if>
+           <if test="goodsId != null">
+               goods_id = #{goodsId},
+           </if>
+           <if test="goodsCount != null">
+               goods_count = #{goodsCount},
+           </if>
+           <if test="isDeleted != null">
+               is_deleted = #{isDeleted},
+           </if>
+           <if test="createTime != null">
+               create_time = #{createTime},
+           </if>
+           <if test="updateTime != null">
+               update_time = #{updateTime},
+           </if>
+       </set>
+       where cart_item_id = #{cartItemId};
+    </update>
+    <update id="deleteByPrimary">
+        update mall_shopping_cart_item
+        <set>
+            is_deleted = 1
+        </set>
+        where cart_item_id = #{cartItemId};
+    </update>
+    <update id="deleteBatch">
+        update mall_shopping_cart_item
+        set is_deleted = 1 where cart_item_id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_shopping_cart_item
+        where cart_item_id in
+        <foreach collection="cartItemIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and is_deleted = 0;
+    </select>
+
+</mapper>
