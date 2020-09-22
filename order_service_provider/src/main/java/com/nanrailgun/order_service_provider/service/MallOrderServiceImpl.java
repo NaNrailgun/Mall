@@ -24,11 +24,11 @@ import com.nanrailgun.order_service_provider.dao.MallOrderMapper;
 import com.nanrailgun.order_service_provider.dao.MallShoppingCartItemMapper;
 import com.nanrailgun.user_api.entity.MallUser;
 import com.nanrailgun.user_api.entity.MallUserAddress;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -182,7 +182,7 @@ public class MallOrderServiceImpl implements MallOrderService {
     }
 
     @Override
-    @Transactional
+    @GlobalTransactional
     public String saveOrder(MallUser user, List<Long> cartItemIds, MallUserAddress address) {
         List<MallShoppingCartItemDTO> shoppingCartItems = mallShoppingCartItemService.getShoppingCartItemByCartItemIds(user.getUserId(), cartItemIds);
         Map<Long, MallShoppingCartItemDTO> mallShoppingCartItemVOMap = shoppingCartItems.stream().collect(Collectors.toMap(MallShoppingCartItemDTO::getGoodsId, Function.identity()));
@@ -240,6 +240,10 @@ public class MallOrderServiceImpl implements MallOrderService {
         if (mallOrderItemMapper.insertBatch(mallOrderItems) < 1) {
             MallException.fail(ServiceResultEnum.DB_ERROR.getResult());
         }
+
+        //测试分布式事务
+        //throw new RuntimeException("test");
+
         return orderNo;
     }
 }
