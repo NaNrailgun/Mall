@@ -242,7 +242,7 @@ public class MallOrderServiceImpl implements MallOrderService {
         }
 
         //测试分布式事务
-        //throw new RuntimeException("test");
+        //throw new MallException("test");
 
         return orderNo;
     }
