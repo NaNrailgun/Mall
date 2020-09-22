@@ -21,4 +21,6 @@ public interface MallOrderService {
     String saveOrder(MallUser user, List<Long> cartItemIds, MallUserAddress address);
 
     String pay(String orderNo, int payType);
+
+    String paySuccess(String orderNo);
 }

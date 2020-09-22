@@ -144,8 +144,30 @@ public class MallOrderServiceImpl implements MallOrderService {
             if (mallOrder.getOrderStatus().intValue() != MallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
                 MallException.fail("非待支付状态下的订单无法支付");
             }
-            mallOrder.setOrderStatus((byte) MallOrderStatusEnum.ORDER_PAID.getOrderStatus());
+            //mallOrder.setOrderStatus((byte) MallOrderStatusEnum.ORDER_PAID.getOrderStatus());
             mallOrder.setPayType((byte) payType);
+            //修改为支付中
+            mallOrder.setPayStatus((byte) PayStatusEnum.PAY_ING.getPayStatus());
+            mallOrder.setPayTime(new Date());
+            mallOrder.setUpdateTime(new Date());
+            if (mallOrderMapper.updateByPrimaryKey(mallOrder) > 0) {
+                return ServiceResultEnum.SUCCESS.getResult();
+            } else {
+                return ServiceResultEnum.DB_ERROR.getResult();
+            }
+        }
+        return ServiceResultEnum.ORDER_NOT_EXIST_ERROR.getResult();
+    }
+
+    @Override
+    public String paySuccess(String orderNo) {
+        MallOrder mallOrder = mallOrderMapper.selectByOrderNo(orderNo);
+        if (mallOrder != null) {
+            if (mallOrder.getPayStatus() != PayStatusEnum.PAY_ING.getPayStatus()) {
+                MallException.fail("支付异常");
+            }
+            mallOrder.setOrderStatus((byte) MallOrderStatusEnum.ORDER_PAID.getOrderStatus());
+            //修改为支付成功
             mallOrder.setPayStatus((byte) PayStatusEnum.PAY_SUCCESS.getPayStatus());
             mallOrder.setPayTime(new Date());
             mallOrder.setUpdateTime(new Date());
