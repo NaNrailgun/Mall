@@ -3,7 +3,7 @@
 
 > 友情提示：近期在升级和优化该项目，主要在做几个事情：
 >
-> * 1、使用dubbo进行服务拆分
+> * 1、引入Seata实现分布式事务
 > * 2、引入Redis
 
 ## 技术栈
@@ -16,12 +16,13 @@
 | [MySQL](https://www.mysql.com/cn/)                        | 数据库服务器   | 8.0.11 |
 | [MyBatis](http://www.mybatis.org/mybatis-3/zh/index.html) | 数据持久层框架 | 2.1.3  |
 | [lombok](https://github.com/rzwitserloot/lombok) | Java开发插件 | 1.18.12  |
+| [Dubbo](http://dubbo.apache.org/zh-cn/) | rpc框架 | 2.7.4.1 |
 
 未来将引入
 
-* [ ] 使用dubbo拆分服务
-* [ ] 使用Seata实现分布式事务
-* [ ] 引入Redis
+* [X] Dubbo
+* [ ] Seata
+* [ ] Redis
 
 ## 基本功能模块
 
@@ -31,3 +32,4 @@
 - 地址模块
 - 订单模块
 - 商品分类模块
+- 支付宝支付模块
