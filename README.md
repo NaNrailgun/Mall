@@ -16,6 +16,7 @@
 | [MyBatis](http://www.mybatis.org/mybatis-3/zh/index.html) | 数据持久层框架 | 2.1.3  |
 | [lombok](https://github.com/rzwitserloot/lombok) | Java开发插件 | 1.18.12  |
 | [Dubbo](http://dubbo.apache.org/zh-cn/) | rpc框架 | 2.7.4.1 |
+| [ZooKeeper](https://zookeeper.apache.org/) | 注册中心 | 3.4.14 |
 | [Seata](http://seata.io/zh-cn/) | 分布式事务框架 | 1.3.0 |
 
 未来将引入
