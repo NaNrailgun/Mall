@@ -3,8 +3,7 @@
 
 > 友情提示：近期在升级和优化该项目，主要在做几个事情：
 >
-> * 1、引入Seata实现分布式事务
-> * 2、引入Redis
+> * 1、引入Redis
 
 ## 技术栈
 
@@ -17,11 +16,12 @@
 | [MyBatis](http://www.mybatis.org/mybatis-3/zh/index.html) | 数据持久层框架 | 2.1.3  |
 | [lombok](https://github.com/rzwitserloot/lombok) | Java开发插件 | 1.18.12  |
 | [Dubbo](http://dubbo.apache.org/zh-cn/) | rpc框架 | 2.7.4.1 |
+| [Seata](http://seata.io/zh-cn/) | 分布式事务框架 | 1.3.0 |
 
 未来将引入
 
-* [X] Dubbo
-* [ ] Seata
+* Dubbo
+* Seata
 * [ ] Redis
 
 ## 基本功能模块
