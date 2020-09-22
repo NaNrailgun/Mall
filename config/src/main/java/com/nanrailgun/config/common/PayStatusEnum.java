@@ -1,7 +1,7 @@
 package com.nanrailgun.config.common;
 
 public enum PayStatusEnum {
-    DEFAULT(-1, "支付失败"),
+    DEFAULT(2, "待支付"),
     PAY_ING(0, "支付中"),
     PAY_SUCCESS(1, "支付成功");
 

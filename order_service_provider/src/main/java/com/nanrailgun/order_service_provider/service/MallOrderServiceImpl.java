@@ -84,7 +84,7 @@ public class MallOrderServiceImpl implements MallOrderService {
     }
 
     @Override
-    public PageResult<MallOrderListDTO> getMyOrders(PageQueryUtil util,int page,int limit) {
+    public PageResult<MallOrderListDTO> getMyOrders(PageQueryUtil util, int page, int limit) {
         util.setPage(page);
         util.setLimit(limit);
         int total = mallOrderMapper.getTotalMallOrders(util);
@@ -141,7 +141,8 @@ public class MallOrderServiceImpl implements MallOrderService {
     public String pay(String orderNo, int payType) {
         MallOrder mallOrder = mallOrderMapper.selectByOrderNo(orderNo);
         if (mallOrder != null) {
-            if (mallOrder.getOrderStatus().intValue() != MallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
+            if (mallOrder.getOrderStatus().intValue() != MallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()
+                    && mallOrder.getPayStatus() != PayStatusEnum.DEFAULT.getPayStatus()) {
                 MallException.fail("非待支付状态下的订单无法支付");
             }
             //mallOrder.setOrderStatus((byte) MallOrderStatusEnum.ORDER_PAID.getOrderStatus());
