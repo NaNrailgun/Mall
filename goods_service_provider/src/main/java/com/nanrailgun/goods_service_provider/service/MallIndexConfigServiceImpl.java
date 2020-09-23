@@ -8,10 +8,10 @@ import com.nanrailgun.goods_api.entity.MallIndexConfig;
 import com.nanrailgun.goods_service_provider.dao.MallGoodsMapper;
 import com.nanrailgun.goods_service_provider.dao.MallIndexConfigMapper;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,22 +24,35 @@ public class MallIndexConfigServiceImpl implements MallIndexConfigService {
     @Resource
     MallGoodsMapper mallGoodsMapper;
 
+    @Resource
+    RedisTemplate<String, List<MallIndexConfigGoodDTO>> redisTemplate;
+
+    private String indexConfigKey = "indexConfigKey";
+
     @Override
     public List<MallIndexConfigGoodDTO> getIndexConfig(int configType, int number) {
-        List<MallIndexConfigGoodDTO> list = new ArrayList<>();
-        List<MallIndexConfig> mallIndexConfigs = mallIndexConfigMapper.getIndexConfigByTypeAndNumber(configType, number);
-        if (!CollectionUtils.isEmpty(mallIndexConfigs)) {
-            List<Long> goodsId = mallIndexConfigs.stream().map(MallIndexConfig::getGoodsId).collect(Collectors.toList());
-            List<MallGoods> mallGoods = mallGoodsMapper.selectByPrimaryKeys(goodsId);
-            list = MyBeanUtil.copyList(mallGoods, MallIndexConfigGoodDTO.class);
-            list.forEach(item -> {
-                if (item.getGoodsIntro().length() > 22) {
-                    item.setGoodsIntro(item.getGoodsIntro().substring(0, 22) + "...");
-                }
-                if (item.getGoodsName().length() > 30) {
-                    item.setGoodsName(item.getGoodsName().substring(0, 30) + "...");
-                }
-            });
+        List<MallIndexConfigGoodDTO> list = null;
+        try {
+            list = redisTemplate.opsForValue().get(indexConfigKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (CollectionUtils.isEmpty(list)) {
+            List<MallIndexConfig> mallIndexConfigs = mallIndexConfigMapper.getIndexConfigByTypeAndNumber(configType, number);
+            if (!CollectionUtils.isEmpty(mallIndexConfigs)) {
+                List<Long> goodsId = mallIndexConfigs.stream().map(MallIndexConfig::getGoodsId).collect(Collectors.toList());
+                List<MallGoods> mallGoods = mallGoodsMapper.selectByPrimaryKeys(goodsId);
+                list = MyBeanUtil.copyList(mallGoods, MallIndexConfigGoodDTO.class);
+                list.forEach(item -> {
+                    if (item.getGoodsIntro().length() > 22) {
+                        item.setGoodsIntro(item.getGoodsIntro().substring(0, 22) + "...");
+                    }
+                    if (item.getGoodsName().length() > 30) {
+                        item.setGoodsName(item.getGoodsName().substring(0, 30) + "...");
+                    }
+                });
+                redisTemplate.opsForValue().set(indexConfigKey, list);
+            }
         }
         return list;
     }
