@@ -1,9 +1,8 @@
 # Mall
 
 
-> 友情提示：近期在升级和优化该项目，主要在做几个事情：
->
-> * 1、引入Redis
+> 友情提示：近期在升级和优化该项目以及后台管理的开发，欢迎star 
+
 
 ## 技术栈
 
@@ -18,12 +17,7 @@
 | [Dubbo](http://dubbo.apache.org/zh-cn/) | rpc框架 | 2.7.4.1 |
 | [ZooKeeper](https://zookeeper.apache.org/) | 注册中心 | 3.4.14 |
 | [Seata](http://seata.io/zh-cn/) | 分布式事务框架 | 1.3.0 |
-
-未来将引入
-
-* Dubbo
-* Seata
-* [ ] Redis
+| [Redis](https://redis.io/) | 缓存 | 3.0.504 |
 
 ## 基本功能模块
 
