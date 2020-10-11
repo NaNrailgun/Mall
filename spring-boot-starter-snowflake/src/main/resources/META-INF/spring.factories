@@ -1,3 +1,3 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.nanrailgun.springbootstartersnowflake.HelloworldAutoConfiguration
+com.nanrailgun.springbootstartersnowflake.config.IdWorkerAutoConfiguration
