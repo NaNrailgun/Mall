@@ -20,6 +20,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.nanrailgun</groupId>
+            <artifactId>spring-boot-starter-snowflake</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!--springboot-dubbo依赖-->
         <dependency>
             <groupId>org.apache.dubbo</groupId>

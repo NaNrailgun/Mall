@@ -3,7 +3,6 @@ package com.nanrailgun.order_service_provider.service;
 
 import com.nanrailgun.config.common.*;
 import com.nanrailgun.config.utils.MyBeanUtil;
-import com.nanrailgun.config.utils.NumberUtil;
 import com.nanrailgun.config.utils.PageQueryUtil;
 import com.nanrailgun.config.utils.PageResult;
 import com.nanrailgun.goods_api.api.MallGoodsService;
@@ -22,6 +21,7 @@ import com.nanrailgun.order_service_provider.dao.MallOrderAddressMapper;
 import com.nanrailgun.order_service_provider.dao.MallOrderItemMapper;
 import com.nanrailgun.order_service_provider.dao.MallOrderMapper;
 import com.nanrailgun.order_service_provider.dao.MallShoppingCartItemMapper;
+import com.nanrailgun.springbootstartersnowflake.beans.IdWorker;
 import com.nanrailgun.user_api.entity.MallUser;
 import com.nanrailgun.user_api.entity.MallUserAddress;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -61,6 +61,9 @@ public class MallOrderServiceImpl implements MallOrderService {
 
     @Autowired
     MallShoppingCartItemService mallShoppingCartItemService;
+
+    @Autowired
+    IdWorker idWorker;
 
     @Override
     public MallOrderDetailDTO getOrderDetailByOrderNo(String orderNo, Long userId) {
@@ -210,7 +213,7 @@ public class MallOrderServiceImpl implements MallOrderService {
         if (result < 1) {
             MallException.fail(ServiceResultEnum.DB_ERROR.getResult());
         }
-        String orderNo = NumberUtil.genOrderNo();
+        String orderNo = String.valueOf(idWorker.nextId());
         int totalPrice = 0;
         MallOrder order = new MallOrder();
         order.setOrderNo(orderNo);
