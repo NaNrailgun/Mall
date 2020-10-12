@@ -85,6 +85,20 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <!-- 本地api依赖 -->
+                    <dependency>
+                        <groupId>com.nanrailgun</groupId>
+                        <artifactId>user_api</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>com.nanrailgun</groupId>
+                        <artifactId>config</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
