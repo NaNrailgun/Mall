@@ -40,13 +40,20 @@
 - 支付宝支付模块
 
 ## 项目截图
-![img](https://nanrailgun.gitee.io/mall/C9771AE7866007E48020A00E953B61AB.jpg)
-![img](https://nanrailgun.gitee.io/mall/7D7A298B9FDB6E95D09A34E8D268C8EA.jpg)
-![img](https://nanrailgun.gitee.io/mall/3DADCC3FD9B76227C3F392324288BD33.jpg)
-![img](https://nanrailgun.gitee.io/mall/9D9CD7076F2C22AF6D904DB653071964.jpg)
-![img](https://nanrailgun.gitee.io/mall/B6CF91EF09CD3BA82D5621C0F76249F7.jpg)
-![img](https://nanrailgun.gitee.io/mall/04C055278EDF8C7E7BE6373ACCE67842.jpg)
-![img](https://nanrailgun.gitee.io/mall/528304FD7A4BDD322A90E44C971B635F.jpg)
-![img](https://nanrailgun.gitee.io/mall/1F7EF39EFCD95A2F781697BDA7AB3CD6.jpg)
-![img](https://nanrailgun.gitee.io/mall/5FF705222A18350113A6EE65AA45919C.jpg)
+<img src="https://nanrailgun.gitee.io/mall/C9771AE7866007E48020A00E953B61AB.jpg" width = "500" height = "800" alt="图片名称" align=center />
 
+<img src="https://nanrailgun.gitee.io/mall/7D7A298B9FDB6E95D09A34E8D268C8EA.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/3DADCC3FD9B76227C3F392324288BD33.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/9D9CD7076F2C22AF6D904DB653071964.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/B6CF91EF09CD3BA82D5621C0F76249F7.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/04C055278EDF8C7E7BE6373ACCE67842.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/528304FD7A4BDD322A90E44C971B635F.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/1F7EF39EFCD95A2F781697BDA7AB3CD6.jpg" width = "500" height = "800" alt="图片名称" align=center />
+
+<img src="https://nanrailgun.gitee.io/mall/5FF705222A18350113A6EE65AA45919C.jpg" width = "500" height = "800" alt="图片名称" align=center />
