@@ -15,6 +15,8 @@ public interface MallOrderMapper {
 
     MallOrder selectByOrderNo(String orderNo);
 
+    MallOrder selectByOrderNoForUpdate(String orderNo);
+
     List<MallOrder> findMallOrderList(PageQueryUtil util);
 
     int getTotalMallOrders(PageQueryUtil util);

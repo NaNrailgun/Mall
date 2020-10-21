@@ -911,7 +911,7 @@ CREATE TABLE `mall_order` (
   `order_no` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户主键id',
   `total_price` int(11) NOT NULL DEFAULT '1' COMMENT '订单总价',
-  `pay_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '支付状态:0.支付中,1.支付成功,2.待支付',
+  `pay_status` tinyint(4) NOT NULL DEFAULT '2' COMMENT '支付状态:0.支付中,1.支付成功,2.待支付',
   `pay_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0.无 1.支付宝支付 2.微信支付',
   `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
   `order_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '订单状态:0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功 -1.手动关闭 -2.超时关闭 -3.商家关闭',

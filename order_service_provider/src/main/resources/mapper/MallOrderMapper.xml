@@ -148,6 +148,12 @@
         from mall_order
         where order_no = #{orderNo} and is_deleted = 0;
     </select>
+    <select id="selectByOrderNoForUpdate" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from mall_order
+        where order_no = #{orderNo} and is_deleted = 0 for update;
+    </select>
     <select id="findMallOrderList" resultMap="BaseResultMap" parameterType="Map">
         select
         <include refid="Base_Column_List"/>
