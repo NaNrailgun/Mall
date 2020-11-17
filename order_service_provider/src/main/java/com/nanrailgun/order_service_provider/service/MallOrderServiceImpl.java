@@ -33,10 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -229,9 +226,12 @@ public class MallOrderServiceImpl implements MallOrderService {
         }
         //减库存
         List<StockNum> stockNums = MyBeanUtil.copyList(shoppingCartItems, StockNum.class);
-        int result = mallGoodsService.updateStockNum(stockNums);
-        if (result < 1) {
-            MallException.fail(ServiceResultEnum.DB_ERROR.getResult());
+        for (StockNum stockNum : stockNums) {
+            List<StockNum> temp = Collections.singletonList(stockNum);
+            int result = mallGoodsService.updateStockNum(temp);
+            if (result < 1) {
+                MallException.fail(ServiceResultEnum.DB_ERROR.getResult());
+            }
         }
         String orderNo = String.valueOf(idWorker.nextId());
         int totalPrice = 0;
