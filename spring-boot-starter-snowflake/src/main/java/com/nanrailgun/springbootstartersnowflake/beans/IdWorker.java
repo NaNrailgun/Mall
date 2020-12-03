@@ -1,10 +1,13 @@
 package com.nanrailgun.springbootstartersnowflake.beans;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class IdWorker {
 
     private long workerId;
     private long dataCenterId;
     private long sequence;
+    private AtomicInteger seq = new AtomicInteger();
 
     public IdWorker(long workerId, long dataCenterId, long sequence) {
         // sanity check for workerId
